@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuimiBot - Interfaz Interactiva</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f3f4f6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      background: white;
+      margin: auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+    }
+    .button {
+      background-color: #7c3aed;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .feedback {
+      background: #fef9c3;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .intro, .final-message {
+      background-color: #e0f2fe;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="intro">
+      <p><strong>¡Hola! Soy tu asistente de química.</strong> Vamos a hacer una breve autoevaluación para ayudarte a identificar compuestos con interacciones intramoleculares covalentes. ¿Estás listo/a?</p>
+      <p><em>Selecciona “Sí, vamos allá” para comenzar o “No, aún no” si deseas volver más tarde.</em></p>
+      <div class="options">
+        <label><input type="radio" name="inicio"> Sí, vamos allá</label>
+        <label><input type="radio" name="inicio"> No, aún no</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p><strong>Pregunta del estudiante:</strong><br>¿Cómo puedo identificar si una fórmula química corresponde a un compuesto con interacciones intramoleculares covalentes?</p>
+      <textarea rows="2" style="width: 100%;" placeholder="Escribe tu razonamiento inicial..."></textarea>
+    </div>
+
+    <div class="question">
+      <p>Pregunta 1: ¿Qué debes observar primero para saber el tipo de enlace que forma un compuesto?</p>
+      <div class="options">
+        <label><input type="radio" name="q1"> a) El número de átomos</label>
+        <label><input type="radio" name="q1"> b) Los tipos de elementos que lo componen (metal o no metal)</label>
+        <label><input type="radio" name="q1"> c) El estado físico del compuesto</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>Pregunta 2: ¿Qué tipo de enlace se forma cuando se combinan dos no metales?</p>
+      <div class="options">
+        <label><input type="radio" name="q2"> a) Covalente</label>
+        <label><input type="radio" name="q2"> b) Iónico</label>
+        <label><input type="radio" name="q2"> c) Metálico</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>Pregunta 3: ¿Qué tipo de enlace esperas cuando se une un metal con un no metal?</p>
+      <div class="options">
+        <label><input type="radio" name="q3"> a) Covalente</label>
+        <label><input type="radio" name="q3"> b) Iónico</label>
+        <label><input type="radio" name="q3"> c) Puente de hidrógeno</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>Pregunta 4: ¿Qué significa que un compuesto tenga interacciones intramoleculares covalentes?</p>
+      <div class="options">
+        <label><input type="radio" name="q4"> a) Que las moléculas se unen entre sí por fuerzas de Van der Waals</label>
+        <label><input type="radio" name="q4"> b) Que los átomos dentro de una misma molécula comparten electrones</label>
+        <label><input type="radio" name="q4"> c) Que se forma una red de iones positivos y negativos</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>Pregunta 5: Revisa estas fórmulas: H₂O, CCl₄, CaF, SO₂, FeO, Al₂O₃. ¿Cuáles de ellas crees que tienen enlaces covalentes dentro de la molécula?</p>
+      <textarea rows="3" style="width: 100%;"></textarea>
+    </div>
+    <div class="question">
+      <p>Pregunta 6: ¿Tuviste en cuenta si los elementos eran metales o no metales al tomar tu decisión?</p>
+      <div class="options">
+        <label><input type="radio" name="q6"> Sí</label>
+        <label><input type="radio" name="q6"> No</label>
+        <label><input type="radio" name="q6"> No estoy seguro/a</label>
+      </div>
+    </div>
+    <div class="question">
+      <p>Pregunta 7: ¿Qué harías diferente si tuvieras que volver a resolver este ejercicio?</p>
+      <textarea rows="3" style="width: 100%;"></textarea>
+    </div>
+    <button class="button" onclick="mostrarFeedback()">Enviar respuestas</button>
+    <div class="feedback" id="feedback" style="display:none;">
+      <p><strong>¡Buen trabajo!</strong> Reflexionar paso a paso te ayuda a fortalecer tu comprensión. Puedes volver a intentarlo más adelante o repasar tus apuntes para profundizar.</p>
+      <p>No olvides que el enlace covalente se da entre no metales y se caracteriza por el compartir de electrones. Confundir este hecho puede dificultar tu comprensión de la polaridad y las propiedades de las moléculas.</p>
+      <p>🔗 Revisa la página correspondiente en tu guía interactiva.<br>
+      📺 También puedes consultar este video sobre tipos de enlaces: <a href="#">Ver video</a></p>
+    </div>
+    <div class="final-message" id="final" style="display:none;">
+      <p><strong>Mensaje final:</strong> ¡Gracias por participar! Puedes volver a intentarlo más adelante o consultar a tu asesor si tienes más dudas. ¡Sigue aprendiendo!</p>
+    </div>
+  </div>
+  <script>
+    function mostrarFeedback() {
+      document.getElementById('feedback').style.display = 'block';
+      document.getElementById('final').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
